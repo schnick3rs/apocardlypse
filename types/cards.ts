@@ -27,3 +27,11 @@ export interface AbstractCard {
   imageUrl: string;
 
 }
+
+export interface Deck {
+    id: string;
+    name: string;
+    createdAt: string;
+    sourceFileName: string;
+    cards: AbstractCard[];
+}

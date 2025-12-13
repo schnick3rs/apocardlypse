@@ -23,6 +23,10 @@ useSeoMeta({
   twitterImage: 'https://ui.nuxt.com/assets/templates/nuxt/starter-light.png',
   twitterCard: 'summary_large_image'
 })
+
+const route = useRoute()
+
+const deckId = computed(() => route.params.id || null)
 </script>
 
 <template>
@@ -35,17 +39,18 @@ useSeoMeta({
 
       </template>
 
-      <UButton to="/cards">Import</UButton>
-      <UButton to="/export">Export</UButton>
-
       <template #right>
+
+        <UButton v-if="deckId" :to="`/decks/${deckId}/table`" variant="subtle">Table</UButton>
+        <UButton v-if="deckId" :to="`/decks/${deckId}/export`" variant="subtle">Export</UButton>
+
         <UColorModeButton />
       </template>
     </UHeader>
 
      <NuxtLayout>
-      <NuxtPage />
-</NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
 
     <USeparator icon="i-simple-icons-nuxtdotjs" />
 

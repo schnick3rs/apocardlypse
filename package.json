@@ -19,6 +19,7 @@
     "@pinia/nuxt": "0.11.3",
     "dom-to-image": "^2.6.0",
     "file-saver": "^2.0.5",
+    "nanoid": "^5.1.6",
     "nuxt": "^4.2.2",
     "pinia": "^3.0.4"
   },

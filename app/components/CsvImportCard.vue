@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { useCardsStore } from '~/stores/cards'
+import { useDecksStore } from '~/stores/decks'
 
 import { storeToRefs } from 'pinia'
-import type {AbstractCard} from '~~/types/cards';
 
-const cardsStore = useCardsStore()
-const { cards } = storeToRefs(cardsStore)
+const decksStore = useDecksStore()
+const { decks } = storeToRefs(decksStore)
+import type {AbstractCard, Deck} from '~~/types/cards';
+import {nanoid} from "nanoid";
 
+const cards = ref([])
 const file = ref<File[]>([])
 
 function mapToAbstractCard(row: any): AbstractCard {
@@ -16,6 +18,15 @@ function mapToAbstractCard(row: any): AbstractCard {
     name: row.Cardname ?? '',
     cost: Number(row.Cost ?? 0),
     text: row.Text ?? '',
+
+    stats: {
+      ang: row.ANG ?? null,
+      int: row.INT ?? null,
+      fok: row.FOK ?? null,
+      aus: row.AUS ?? null,
+    },
+
+    planning: row.Plan ?? '',
 
     tags: row.Tags ? row.Tags.split(/[,;]+/).map(t => t.trim()) : [],
 
@@ -71,11 +82,18 @@ const parseCsv = () => {
         const cleaned = data
           .filter(item => item.Cardname !== '')
           .map((item) => {
-            console.log(item)
             return mapToAbstractCard(item)
           })
-        console.log('[CSV] cleaned and final data', cleaned)
         cards.value = cleaned
+        let date = new Date();
+        const deck: Deck = {
+          id: nanoid(),
+          name: file.value.name,
+          sourceFileName: file.value.name,
+          cards: cleaned,
+          createdAt: date.toString(),
+        };
+        decks.value.push(deck);
       }
     }
 

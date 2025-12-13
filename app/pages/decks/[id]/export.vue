@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import { useCardsStore } from '~/stores/cards'
+import { useDecksStore } from '~/stores/decks'
+import type {Deck} from '~~/types/cards';
+const decksStore = useDecksStore()
+const route = useRoute()
 
-import { storeToRefs } from 'pinia'
+const deckId: string = route.params.id as string;
+const deck: Deck | undefined = decksStore.byId(deckId);
+
+if (!deck) {
+  throw new Error('Deck not found!')
+}
+
 import domtoimage from 'dom-to-image';
 import { saveAs } from 'file-saver'
 
-const cardsStore = useCardsStore()
-const { cards } = storeToRefs(cardsStore)
 
 const loading = ref(false);
 
@@ -56,7 +63,7 @@ const downloadPng = async (id: string) => {
         bg-white
       "
     >
-      <div v-for="(card) in cards">
+      <div v-for="(card) in deck.cards">
         <GenericCard :key="card.id" :card="card"></GenericCard>
       </div>
     </div>
