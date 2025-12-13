@@ -33,6 +33,18 @@ const cardImage = computed(() => {
     <div v-if="card.text" class="text p-2 w-full">{{ card.text }}</div>
 
     <div
+        v-if="card.layout === 'Plan'"
+        class="stats flex items-center justify-center font-mono w-full p-2 text-sm"
+    >
+      <div class="stat-wrap mx-2 flex flex-col items-center">
+        <div class="stat px-4 bg-fuchsia-400 shadow-lg shadow-fuchsia-300/50 rounded-sm">
+          {{ card.planning }}
+        </div>
+        <div class="label text-[10px] mt-0.5 opacity-70">Plan</div>
+      </div>
+    </div>
+
+    <div
       v-if="card.layout === 'Ally'"
       class="stats flex items-center justify-center font-mono w-full p-2 text-sm"
     >
@@ -155,9 +167,14 @@ const cardImage = computed(() => {
   line-height: 4mm;
 }
 
+.plan {
+  position: absolute;
+  top: 72mm;
+}
+
 .stats {
   position: absolute;
-  top: 73mm;
+  top: 72mm;
 }
 
 .stats .stat {
