@@ -26,7 +26,7 @@ const cardImage = computed(() => {
     <div v-if="card.cost !== undefined" class="cost bg-amber-200 shadow-lg shadow-amber-200/50 rounded-full w-8 h-8 flex items-center justify-center font-mono">{{ card.cost }}</div>
     <div v-if="card.name" class="name w-3/4 ml-12 px-2 py-1 bg-cyan-900 shadow-lg shadow-cyan-900/50 rounded-sm">{{ card.name }}</div>
 
-    <div class="w-full absolute top-48 text-xs text-center">
+    <div class="tags w-full absolute top-46 text-xs text-center">
       {{card.tags.join(' · ')}}
     </div>
 
@@ -161,10 +161,10 @@ const cardImage = computed(() => {
 
 .text {
   position: absolute;
-  top: 55mm;
+  top: 53mm;
   left: 0;
-  font-size: 3.6mm;
-  line-height: 4mm;
+  font-size: 3.2mm;
+  line-height: 3.6mm;
 }
 
 .plan {
