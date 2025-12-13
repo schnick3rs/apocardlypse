@@ -13,7 +13,7 @@ const cardImage = computed(() => {
 </script>
 
 <template>
-  <article class="card">
+  <article class="card cutter">
 
     <!-- card specific background image -->
     <div v-if="card.imageUrl" class="layer layer-image" :style="cardImage"></div>

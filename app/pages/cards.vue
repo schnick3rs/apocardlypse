@@ -80,7 +80,6 @@ const parseCsv = () => {
         const cleaned = data
           .filter(item => item.Cardname !== '')
           .map((item) => {
-            console.log(item)
             return mapToAbstractCard(item)
           })
         console.log('[CSV] cleaned and final data', cleaned)
