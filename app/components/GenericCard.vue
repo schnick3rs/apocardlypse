@@ -1,84 +1,172 @@
 <script setup lang="ts">
 import type {AbstractCard} from "~~/types/cards";
 
-const { card } = defineProps<{ card: AbstractCard }>();
+const { card, scale } = defineProps<{ card: AbstractCard, scale: number }>();
 
 const cardImage = computed(() => {
   if (card.imageUrl) {
-    return { backgroundImage: `url(${card.imageUrl})` };
+    return {
+      backgroundImage: `url(${card.imageUrl})`,
+      top: `${11*scale}mm`,
+    };
   }
   return null;
 });
 
+const cardDimensions = computed(() => {
+  return {
+    height: `${88*scale}mm`,
+    width: `${63.2*scale}mm`,
+    fontSize: `${3.2*scale}mm`,
+  }
+})
+
+const nameStyle = computed(() => {
+  return {
+    top: `${2*scale}mm`,
+    marginLeft: `${12*scale}mm`,
+    fontSize: `${4*scale}mm`,
+    padding: `${2*scale}mm ${3*scale}mm`,
+  }
+})
+
+const costStyle = computed(() => {
+  return {
+    top: `${2*scale}mm`,
+    height: `${8*scale}mm`,
+    width: `${8*scale}mm`,
+  }
+})
+
+const tagsStyle = computed(() => {
+  return {
+    top: `${45*scale}mm`,
+    fontSize: `${3.2*scale}mm`,
+  }
+})
+
+
+const textStyle = computed(() => {
+  return {
+    top: `${49*scale}mm`,
+    fontSize: `${3.2*scale}mm`,
+    lineHeight: `${3.6*scale}mm`,
+    padding: `${2*scale}mm`,
+  }
+})
+
+const statsContainerStyle = computed(() => {
+  return {
+    top: `${72*scale}mm`,
+    fontSize: `${3.2*scale}mm`,
+    padding: `${2*scale}mm`,
+  }
+})
+
+const statWrapperStyle = computed(() => {
+  return {
+    margin: `0 ${2*scale}mm`,
+  }
+})
+
+const statStyle = computed(() => {
+  return {
+    padding: `0 ${4*scale}mm`,
+  }
+})
+
+const statLabelStyle = computed(() => {
+  return {
+    marginTop: `${0.4*scale}mm`,
+    fontSize: `${3*scale}mm`,
+  }
+})
+
+const footerStyle = computed(() => {
+  return {
+    bottom: 0,
+    fontSize: `${2.8*scale}mm`,
+  }
+})
 </script>
 
 <template>
-  <article class="card">
+  <article class="card" :style="cardDimensions">
 
     <!-- card specific background image -->
     <div v-if="card.imageUrl" class="layer layer-image" :style="cardImage"></div>
 
     <!-- card Stain -->
-    <div class="layer layer-stain"></div>
+    <div class="layer layer-stain--top"></div>
+    <div class="layer layer-stain--bottom"></div>
 
     <!-- frame -->
 
-    <div v-if="card.cost !== undefined" class="cost bg-amber-200 shadow-lg shadow-amber-200/50 rounded-full w-8 h-8 flex items-center justify-center font-mono">{{ card.cost }}</div>
-    <div v-if="card.name" class="name w-3/4 ml-12 px-2 py-1 bg-cyan-900 shadow-lg shadow-cyan-900/50 rounded-sm">{{ card.name }}</div>
+    <div
+        v-if="card.cost !== undefined"
+        class="cost bg-amber-400 shadow-lg shadow-amber-400/50 rounded-full flex items-center justify-center font-mono font-bold"
+        :style="costStyle"
+    >
+      {{ card.cost }}
+    </div>
 
-    <div class="tags w-full absolute top-47 text-xs text-center font-bold">
+    <div v-if="card.name" class="name w-3/4 bg-cyan-900 shadow-lg shadow-cyan-900/50 rounded-lg" :style="nameStyle">{{ card.name }}</div>
+
+    <div class="tags w-full absolute text-center font-bold" :style="tagsStyle">
       {{card.tags.join(' · ')}}
     </div>
 
-    <div v-if="card.text" class="text p-2 w-full">{{ card.text }}</div>
+    <div v-if="card.text" class="text w-full" :style="textStyle">{{ card.text }}</div>
 
     <div
         v-if="card.layout === 'Plan'"
-        class="stats flex items-center justify-center font-mono w-full p-2 text-sm"
+        class="stats flex items-center justify-center font-mono w-full"
+        :style="statsContainerStyle"
     >
-      <div class="stat-wrap mx-2 flex flex-col items-center">
-        <div class="stat px-4 bg-fuchsia-400 shadow-lg shadow-fuchsia-300/50 rounded-sm">
+      <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
+        <div class="stat bg-fuchsia-400 shadow-lg shadow-fuchsia-400/50 rounded-sm" :style="statStyle">
           {{ card.planning }}
         </div>
-        <div class="label text-[10px] mt-0.5 opacity-70">Plan</div>
+        <div class="label opacity-70" :style="statLabelStyle">Plan</div>
       </div>
     </div>
 
     <div
       v-if="card.layout === 'Ally'"
-      class="stats flex items-center justify-center font-mono w-full p-2 text-sm"
+      class="stats flex items-center justify-center font-mono w-full"
+      :style="statsContainerStyle"
     >
-      <div class="stat-wrap mx-2 flex flex-col items-center">
-        <div class="stat px-4 bg-red-400 shadow-lg shadow-red-400/50 rounded-sm">
+      <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
+        <div class="stat bg-red-400 shadow-lg shadow-red-400/50 rounded-sm" :style="statStyle">
           {{ card.stats.ang }}
         </div>
-        <div class="label text-[10px] mt-0.5 opacity-70">ANG</div>
+        <div class="label opacity-70" :style="statLabelStyle">ANG</div>
       </div>
 
-      <div class="stat-wrap mx-2 flex flex-col items-center">
-        <div class="stat px-4 bg-yellow-400 shadow-lg shadow-yellow-400/50 rounded-sm">
+      <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
+        <div class="stat bg-yellow-400 shadow-lg shadow-yellow-400/50 rounded-sm" :style="statStyle">
           {{ card.stats.int }}
         </div>
-        <div class="label text-[10px] mt-0.5 opacity-70">INT</div>
+        <div class="label opacity-70" :style="statLabelStyle">INT</div>
       </div>
 
-      <div class="stat-wrap mx-2 flex flex-col items-center">
-        <div class="stat px-4 bg-blue-400 shadow-lg shadow-blue-400/50 rounded-sm">
+      <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
+        <div class="stat bg-blue-400 shadow-lg shadow-blue-400/50 rounded-sm" :style="statStyle">
           {{ card.stats.fok }}
         </div>
-        <div class="label text-[10px] mt-0.5 opacity-70">FOK</div>
+        <div class="label opacity-70" :style="statLabelStyle">FOK</div>
       </div>
 
-      <div class="stat-wrap mx-2 flex flex-col items-center">
-        <div class="stat px-4 bg-green-400 shadow-lg shadow-green-400/50 rounded-sm">
+      <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
+        <div class="stat bg-green-400 shadow-lg shadow-green-400/50 rounded-sm" :style="statStyle">
           {{ card.stats.aus }}
         </div>
-        <div class="label text-[10px] mt-0.5 opacity-70">AUS</div>
+        <div class="label opacity-70" :style="statLabelStyle">AUS</div>
       </div>
     </div>
 
 
-    <div class="w-full absolute bottom-0 text-xs text-center">
+    <div class="footer w-full absolute text-center" :style="footerStyle">
       {{card.sourceName}} · lvl {{card.sourceLevel}} · {{card.sourceType}}
     </div>
 
@@ -100,9 +188,6 @@ const cardImage = computed(() => {
   float: left;
   display: block;
   page-break-inside: avoid;
-
-  height: 88mm;
-  width: 63.5mm;
 }
 
 .card.cutter {
@@ -136,12 +221,19 @@ const cardImage = computed(() => {
 
 .layer-image {
   position: absolute;
-  top: 15mm;
-  height: 50%;
+  height: 47%;
 }
 
 .layer-stain {
   background-image: url('/img/stain-center-medium.png');
+}
+
+.layer-stain--top {
+  background-image: url('/img/stain-top-medium.png');
+}
+
+.layer-stain--bottom {
+  background-image: url('/img/stain-bottom-small.png');
 }
 
 .cost {
@@ -152,7 +244,6 @@ const cardImage = computed(() => {
 
 .name {
   position: absolute;
-  top: 2mm;
   line-height: 1;                 /* keeps it single-line */
   white-space: nowrap;            /* force single line */
 
@@ -161,24 +252,11 @@ const cardImage = computed(() => {
 
 .text {
   position: absolute;
-  top: 53mm;
   left: 0;
-  font-size: 3.2mm;
-  line-height: 3.6mm;
-}
-
-.plan {
-  position: absolute;
-  top: 72mm;
 }
 
 .stats {
   position: absolute;
-  top: 72mm;
-}
-
-.stats .stat {
-
 }
 
 </style>

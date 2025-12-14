@@ -43,10 +43,14 @@ const downloadPng = async (id: string) => {
   }
 }
 
+//
+const scale = ref(1)
+
 </script>
 
 <template>
   <UPageCard>
+    <USlider :min="1" :max="4" v-model="scale"></USlider>
     <UProgress v-show="loading"></UProgress>
     <UButton @click="downloadPng('print-area')">Download TTS ready PNG</UButton>
   </UPageCard>
@@ -64,7 +68,11 @@ const downloadPng = async (id: string) => {
       "
     >
       <div v-for="(card) in deck.cards">
-        <GenericCard :key="card.id" :card="card"></GenericCard>
+        <GenericCard
+            :key="card.id"
+            :card="card"
+            :scale="scale"
+        ></GenericCard>
       </div>
     </div>
   </section>
