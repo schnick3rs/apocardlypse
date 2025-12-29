@@ -40,7 +40,9 @@ const costStyle = computed(() => {
 
 const tagsStyle = computed(() => {
   return {
-    top: `${45*scale}mm`,
+    top: `${84*scale}mm`,
+    right: `${2*scale}mm`,
+    width: `${40*scale}mm`,
     fontSize: `${3.2*scale}mm`,
   }
 })
@@ -48,7 +50,9 @@ const tagsStyle = computed(() => {
 
 const textStyle = computed(() => {
   return {
-    top: `${49*scale}mm`,
+    top: `${84*scale}mm`,
+    right: `${8*scale}mm`,
+    width: `${40*scale}mm`,
     fontSize: `${3.2*scale}mm`,
     lineHeight: `${3.6*scale}mm`,
     padding: `${2*scale}mm`,
@@ -57,7 +61,10 @@ const textStyle = computed(() => {
 
 const statsContainerStyle = computed(() => {
   return {
-    top: `${72*scale}mm`,
+
+    top: `${84*scale}mm`,
+    left: `${-18-2*scale}mm`,
+    width: `${40*scale}mm`,
     fontSize: `${3.2*scale}mm`,
     padding: `${2*scale}mm`,
   }
@@ -94,7 +101,7 @@ const footerStyle = computed(() => {
   <article class="card" :style="cardDimensions">
 
     <!-- card specific background image -->
-    <div v-if="card.imageUrl" class="layer layer-image" :style="cardImage"></div>
+    <div v-if="card.imageUrl" class="layer layer-image rotate-90 origin-cente" :style="cardImage"></div>
 
     <!-- card Stain -->
     <div class="layer layer-stain--top"></div>
@@ -112,59 +119,32 @@ const footerStyle = computed(() => {
 
     <div v-if="card.name" class="name w-3/4 bg-cyan-900 shadow-lg shadow-cyan-900/50 rounded-lg" :style="nameStyle">{{ card.name }}</div>
 
-    <div class="tags w-full absolute text-center font-bold" :style="tagsStyle">
-      {{card.tags.join(' · ')}}
+    <div
+        class="tags w-full absolute text-center font-bold rotated-right"
+        :style="tagsStyle"
+    >
+      {{ card.tags.join(' · ') }}
     </div>
 
-    <div v-if="card.text" class="text w-full" :style="textStyle">{{ card.text }}</div>
+    <div
+        v-if="card.text"
+        class="text w-full absolute rotated-right"
+        :style="textStyle"
+    >
+      {{ card.text }}
+    </div>
 
     <div
-        v-if="card.layout === 'Plan'"
-        class="stats flex items-center justify-center font-mono w-full"
+        class="stats absolute rotated-right flex items-center justify-center font-mono w-full"
         :style="statsContainerStyle"
     >
       <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
-        <div class="stat bg-blue-400 shadow-lg shadow-blue-400/50 rounded-sm" :style="statStyle">
+        <div class="stat bg-yellow-400 shadow-lg shadow-yellow-400/50 rounded-sm" :style="statStyle">
           {{ card.planning }}
         </div>
         <div class="label opacity-70" :style="statLabelStyle">Plan</div>
       </div>
     </div>
-
-    <div
-      v-if="card.layout === 'Ally'"
-      class="stats flex items-center justify-center font-mono w-full"
-      :style="statsContainerStyle"
-    >
-      <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
-        <div class="stat bg-red-400 shadow-lg shadow-red-400/50 rounded-sm" :style="statStyle">
-          {{ card.stats.ang }}
-        </div>
-        <div class="label opacity-70" :style="statLabelStyle">ANG</div>
-      </div>
-
-      <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
-        <div class="stat bg-yellow-400 shadow-lg shadow-yellow-400/50 rounded-sm" :style="statStyle">
-          {{ card.stats.int }}
-        </div>
-        <div class="label opacity-70" :style="statLabelStyle">INT</div>
-      </div>
-
-      <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
-        <div class="stat bg-blue-400 shadow-lg shadow-blue-400/50 rounded-sm" :style="statStyle">
-          {{ card.stats.fok }}
-        </div>
-        <div class="label opacity-70" :style="statLabelStyle">FOK</div>
-      </div>
-
-      <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
-        <div class="stat bg-green-400 shadow-lg shadow-green-400/50 rounded-sm" :style="statStyle">
-          {{ card.stats.aus }}
-        </div>
-        <div class="label opacity-70" :style="statLabelStyle">AUS</div>
-      </div>
-    </div>
-
 
     <div class="footer w-full absolute text-center" :style="footerStyle">
       {{card.sourceName}} · lvl {{card.sourceLevel}} · {{card.sourceType}}
@@ -250,13 +230,18 @@ const footerStyle = computed(() => {
   color: white;
 }
 
+
 .text {
   position: absolute;
-  left: 0;
 }
 
 .stats {
   position: absolute;
+}
+
+.rotated-right {
+  transform: rotate(90deg);
+  transform-origin: top right;
 }
 
 </style>
