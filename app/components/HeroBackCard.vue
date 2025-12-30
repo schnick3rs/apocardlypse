@@ -24,7 +24,6 @@ const cardDimensions = computed(() => {
 const nameStyle = computed(() => {
   return {
     top: `${2*scale}mm`,
-    margin: `0 ${2*scale}mm`,
     fontSize: `${4*scale}mm`,
     padding: `${2*scale}mm ${3*scale}mm`,
   }
@@ -94,7 +93,7 @@ const footerStyle = computed(() => {
 
     <!-- frame -->
 
-    <div v-if="card.name" class="name w-full bg-cyan-900 shadow-lg shadow-cyan-900/50 rounded-lg" :style="nameStyle">{{ card.name }}</div>
+    <div v-if="card.name" class="name w-full bg-cyan-900 shadow-lg shadow-cyan-900/50 " :style="nameStyle">{{ card.name }}</div>
 
     <div class="tags w-full absolute text-center font-bold" :style="tagsStyle">
       {{card.tags.join(' · ')}}

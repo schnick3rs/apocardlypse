@@ -24,19 +24,11 @@ const cardDimensions = computed(() => {
 const nameStyle = computed(() => {
   return {
     top: `${2*scale}mm`,
-    marginLeft: `${12*scale}mm`,
     fontSize: `${4*scale}mm`,
     padding: `${2*scale}mm ${3*scale}mm`,
   }
 })
 
-const costStyle = computed(() => {
-  return {
-    top: `${2*scale}mm`,
-    height: `${8*scale}mm`,
-    width: `${8*scale}mm`,
-  }
-})
 
 const tagsStyle = computed(() => {
   return {
@@ -102,15 +94,7 @@ const footerStyle = computed(() => {
 
     <!-- frame -->
 
-    <div
-        v-if="card.cost !== undefined"
-        class="cost bg-amber-400 shadow-lg shadow-amber-400/50 rounded-full flex items-center justify-center font-mono font-bold"
-        :style="costStyle"
-    >
-      {{ card.cost }}
-    </div>
-
-    <div v-if="card.name" class="name w-3/4 bg-cyan-900 shadow-lg shadow-cyan-900/50 rounded-lg" :style="nameStyle">{{ card.name }}</div>
+    <div v-if="card.name" class="name w-full bg-cyan-900 shadow-lg shadow-cyan-900/50" :style="nameStyle">{{ card.name }}</div>
 
     <div class="tags w-full absolute text-center font-bold" :style="tagsStyle">
       {{card.tags.join(' · ')}}
