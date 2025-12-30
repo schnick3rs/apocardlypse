@@ -24,17 +24,9 @@ const cardDimensions = computed(() => {
 const nameStyle = computed(() => {
   return {
     top: `${2*scale}mm`,
-    marginLeft: `${12*scale}mm`,
+    margin: `0 ${2*scale}mm`,
     fontSize: `${4*scale}mm`,
     padding: `${2*scale}mm ${3*scale}mm`,
-  }
-})
-
-const costStyle = computed(() => {
-  return {
-    top: `${2*scale}mm`,
-    height: `${8*scale}mm`,
-    width: `${8*scale}mm`,
   }
 })
 
@@ -102,15 +94,7 @@ const footerStyle = computed(() => {
 
     <!-- frame -->
 
-    <div
-        v-if="card.cost !== undefined"
-        class="cost bg-amber-400 shadow-lg shadow-amber-400/50 rounded-full flex items-center justify-center font-mono font-bold"
-        :style="costStyle"
-    >
-      {{ card.cost }}
-    </div>
-
-    <div v-if="card.name" class="name w-3/4 bg-cyan-900 shadow-lg shadow-cyan-900/50 rounded-lg" :style="nameStyle">{{ card.name }}</div>
+    <div v-if="card.name" class="name w-full bg-cyan-900 shadow-lg shadow-cyan-900/50 rounded-lg" :style="nameStyle">{{ card.name }}</div>
 
     <div class="tags w-full absolute text-center font-bold" :style="tagsStyle">
       {{card.tags.join(' · ')}}
@@ -124,7 +108,7 @@ const footerStyle = computed(() => {
         :style="statsContainerStyle"
     >
       <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
-        <div class="stat bg-blue-400 shadow-lg shadow-blue-400/50 rounded-sm" :style="statStyle">
+        <div class="stat bg-violet-800 text-white shadow-lg shadow-violet-800/50 rounded-sm" :style="statStyle">
           {{ card.planning }}
         </div>
         <div class="label opacity-70" :style="statLabelStyle">Plan</div>
@@ -137,8 +121,8 @@ const footerStyle = computed(() => {
     >
 
       <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
-        <div class="stat bg-teal-400 shadow-lg shadow-teal-400/50 rounded-sm" :style="statStyle">
-          {{ card.planning }}
+        <div class="stat bg-red-600 shadow-lg shadow-red-600/50 rounded-sm text-white" :style="statStyle">
+          {{ card.stats.erh }}
         </div>
         <div class="label opacity-70" :style="statLabelStyle">ERH</div>
       </div>

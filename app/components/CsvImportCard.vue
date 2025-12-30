@@ -21,9 +21,11 @@ function mapToAbstractCard(row: any): AbstractCard {
 
     stats: {
       ang: row.ANG ?? null,
+      ver: row.VER ?? null,
       int: row.INT ?? null,
       fok: row.FOK ?? null,
       aus: row.AUS ?? null,
+      erh: row.ERH ?? null,
     },
 
     planning: row.Plan ?? '',

@@ -124,7 +124,7 @@ const footerStyle = computed(() => {
         :style="statsContainerStyle"
     >
       <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
-        <div class="stat bg-blue-400 shadow-lg shadow-blue-400/50 rounded-sm" :style="statStyle">
+        <div class="stat bg-violet-800 text-white shadow-lg shadow-violet-800/50 rounded-sm" :style="statStyle">
           {{ card.planning }}
         </div>
         <div class="label opacity-70" :style="statLabelStyle">Plan</div>
@@ -137,21 +137,21 @@ const footerStyle = computed(() => {
       :style="statsContainerStyle"
     >
       <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
-        <div class="stat bg-red-400 shadow-lg shadow-red-400/50 rounded-sm" :style="statStyle">
+        <div class="stat bg-orange-500 shadow-lg shadow-orange-500/50 rounded-sm" :style="statStyle">
           {{ card.stats.ang }}
         </div>
         <div class="label opacity-70" :style="statLabelStyle">ANG</div>
       </div>
 
       <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
-        <div class="stat bg-yellow-400 shadow-lg shadow-yellow-400/50 rounded-sm" :style="statStyle">
+        <div class="stat bg-yellow-300 shadow-lg shadow-yellow-300/50 rounded-sm" :style="statStyle">
           {{ card.stats.int }}
         </div>
         <div class="label opacity-70" :style="statLabelStyle">INT</div>
       </div>
 
       <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
-        <div class="stat bg-blue-400 shadow-lg shadow-blue-400/50 rounded-sm" :style="statStyle">
+        <div class="stat bg-violet-800 text-white shadow-lg shadow-violet-800/50 rounded-sm" :style="statStyle">
           {{ card.stats.fok }}
         </div>
         <div class="label opacity-70" :style="statLabelStyle">FOK</div>

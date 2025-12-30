@@ -139,7 +139,7 @@ const footerStyle = computed(() => {
         :style="statsContainerStyle"
     >
       <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
-        <div class="stat bg-yellow-400 shadow-lg shadow-yellow-400/50 rounded-sm" :style="statStyle">
+        <div class="stat bg-yellow-300 shadow-lg shadow-yellow-300/50 rounded-sm" :style="statStyle">
           {{ card.planning }}
         </div>
         <div class="label opacity-70" :style="statLabelStyle">Plan</div>

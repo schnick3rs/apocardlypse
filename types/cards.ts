@@ -13,9 +13,11 @@ export interface AbstractCard {
 
   stats: {
     ang: number | null;
+    ver: number | null;
     int: number | null;
     fok: number | null;
     aus: number | null;
+    erh: number | null;
   } | null;
 
   planning: number | null;
