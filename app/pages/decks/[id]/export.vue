@@ -4,7 +4,7 @@ import type {AbstractCard, Deck} from '~~/types/cards'
 
 import domtoimage from 'dom-to-image'
 import { saveAs } from 'file-saver'
-import {AdversaryPlanCard, GenericCard} from "#components";
+import {AdversaryPlanCard, GenericCard, HeroBackCard, HeroFrontCard} from "#components";
 
 const decksStore = useDecksStore()
 const route = useRoute()
@@ -49,6 +49,10 @@ const scale = ref(1)
 
 const dynamicCard = (card: AbstractCard) => {
   switch (card.layout) {
+    case 'Held':
+      return HeroFrontCard
+    case 'Auszeit':
+      return HeroBackCard
     case 'Nebenplan':
       return AdversaryPlanCard
     case 'Plan':
