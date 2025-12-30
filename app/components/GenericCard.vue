@@ -169,6 +169,7 @@ const footerStyle = computed(() => {
       :style="statsContainerStyle"
     >
       <div
+          v-if="card.stats.ang"
         class="stat-wrap flex flex-col items-center"
         :style="statWrapperStyle"
       >
@@ -187,6 +188,7 @@ const footerStyle = computed(() => {
       </div>
 
       <div
+          v-if="card.stats.int"
         class="stat-wrap flex flex-col items-center"
         :style="statWrapperStyle"
       >
@@ -224,6 +226,7 @@ const footerStyle = computed(() => {
       </div>
 
       <div
+          v-if="card.stats.aus"
         class="stat-wrap flex flex-col items-center"
         :style="statWrapperStyle"
       >
