@@ -45,7 +45,7 @@ const downloadPng = async (id: string) => {
 }
 
 //
-const scale = ref(1)
+const scale = ref(2)
 
 const dynamicCard = (card: AbstractCard) => {
   switch (card.layout) {
