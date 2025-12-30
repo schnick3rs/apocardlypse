@@ -1,175 +1,253 @@
 <script setup lang="ts">
-import type {AbstractCard} from "~~/types/cards";
+import type { AbstractCard } from '~~/types/cards'
 
-const { card, scale } = defineProps<{ card: AbstractCard, scale: number }>();
+const { card, scale } = defineProps<{ card: AbstractCard, scale: number }>()
 
 const cardImage = computed(() => {
   if (card.imageUrl) {
     return {
       backgroundImage: `url(${card.imageUrl})`,
-      top: `${11*scale}mm`,
-    };
+      top: `${11 * scale}mm`
+    }
   }
-  return null;
-});
+  return null
+})
 
 const cardDimensions = computed(() => {
   return {
-    height: `${88*scale}mm`,
-    width: `${63.2*scale}mm`,
-    fontSize: `${3.2*scale}mm`,
+    height: `${88 * scale}mm`,
+    width: `${63.2 * scale}mm`,
+    fontSize: `${3.2 * scale}mm`
   }
 })
 
 const nameStyle = computed(() => {
   return {
-    top: `${2*scale}mm`,
-    marginLeft: `${12*scale}mm`,
-    fontSize: `${4*scale}mm`,
-    padding: `${2*scale}mm ${3*scale}mm`,
+    top: `${2 * scale}mm`,
+    marginLeft: `${12 * scale}mm`,
+    fontSize: `${4 * scale}mm`,
+    padding: `${2 * scale}mm ${3 * scale}mm`
   }
 })
 
 const costStyle = computed(() => {
   return {
-    top: `${2*scale}mm`,
-    height: `${8*scale}mm`,
-    width: `${8*scale}mm`,
+    top: `${2 * scale}mm`,
+    height: `${8 * scale}mm`,
+    width: `${8 * scale}mm`
   }
 })
 
 const tagsStyle = computed(() => {
   return {
-    top: `${45*scale}mm`,
-    fontSize: `${3.2*scale}mm`,
+    top: `${45 * scale}mm`,
+    fontSize: `${3.2 * scale}mm`
   }
 })
 
-
 const textStyle = computed(() => {
   return {
-    top: `${49*scale}mm`,
-    fontSize: `${3.2*scale}mm`,
-    lineHeight: `${3.6*scale}mm`,
-    padding: `${2*scale}mm`,
+    top: `${49 * scale}mm`,
+    fontSize: `${3.2 * scale}mm`,
+    lineHeight: `${3.6 * scale}mm`,
+    padding: `${2 * scale}mm`
   }
 })
 
 const statsContainerStyle = computed(() => {
   return {
-    top: `${72*scale}mm`,
-    fontSize: `${3.2*scale}mm`,
-    padding: `${2*scale}mm`,
+    top: `${72 * scale}mm`,
+    fontSize: `${3.2 * scale}mm`,
+    padding: `${2 * scale}mm`
   }
 })
 
 const statWrapperStyle = computed(() => {
   return {
-    margin: `0 ${2*scale}mm`,
+    margin: `0 ${2 * scale}mm`
   }
 })
 
 const statStyle = computed(() => {
   return {
-    padding: `0 ${4*scale}mm`,
+    padding: `0 ${4 * scale}mm`
   }
 })
 
 const statLabelStyle = computed(() => {
   return {
-    marginTop: `${0.4*scale}mm`,
-    fontSize: `${3*scale}mm`,
+    marginTop: `${0.4 * scale}mm`,
+    fontSize: `${3 * scale}mm`
   }
 })
 
 const footerStyle = computed(() => {
   return {
     bottom: 0,
-    fontSize: `${2.8*scale}mm`,
+    fontSize: `${2.8 * scale}mm`
   }
 })
 </script>
 
 <template>
-  <article class="card" :style="cardDimensions">
-
+  <article
+    class="card"
+    :style="cardDimensions"
+    :data="JSON.stringify(card)"
+  >
     <!-- card specific background image -->
-    <div v-if="card.imageUrl" class="layer layer-image" :style="cardImage"></div>
+    <div
+      v-if="card.imageUrl"
+      class="layer layer-image"
+      :style="cardImage"
+    />
 
     <!-- card Stain -->
-    <div class="layer layer-stain--top"></div>
-    <div class="layer layer-stain--bottom"></div>
+    <div class="layer layer-stain--top" />
+    <div class="layer layer-stain--bottom" />
 
     <!-- frame -->
 
     <div
-        v-if="card.cost !== undefined"
-        class="cost bg-amber-400 shadow-lg shadow-amber-400/50 rounded-full flex items-center justify-center font-mono font-bold"
-        :style="costStyle"
+      v-if="card.cost !== undefined"
+      class="cost bg-amber-400 shadow-lg shadow-amber-400/50 rounded-full flex items-center justify-center font-mono font-bold"
+      :style="costStyle"
     >
       {{ card.cost }}
     </div>
 
-    <div v-if="card.name" class="name w-3/4 bg-cyan-900 shadow-lg shadow-cyan-900/50 rounded-lg" :style="nameStyle">{{ card.name }}</div>
-
-    <div class="tags w-full absolute text-center font-bold" :style="tagsStyle">
-      {{card.tags.join(' · ')}}
-    </div>
-
-    <div v-if="card.text" class="text w-full" :style="textStyle">{{ card.text }}</div>
-
     <div
-        v-if="card.layout === 'Plan'"
-        class="stats flex items-center justify-center font-mono w-full"
-        :style="statsContainerStyle"
+      v-if="card.name"
+      class="name w-3/4 bg-cyan-900 shadow-lg shadow-cyan-900/50 rounded-lg"
+      :style="nameStyle"
     >
-      <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
-        <div class="stat bg-violet-800 text-white shadow-lg shadow-violet-800/50 rounded-sm" :style="statStyle">
-          {{ card.planning }}
-        </div>
-        <div class="label opacity-70" :style="statLabelStyle">Plan</div>
-      </div>
+      {{ card.name }}
     </div>
 
     <div
-      v-if="card.layout === 'Ally'"
+      class="tags w-full absolute text-center font-bold"
+      :style="tagsStyle"
+    >
+      {{ card.tags.join(' · ') }}
+    </div>
+
+    <div
+      v-if="card.text"
+      class="text w-full"
+      :style="textStyle"
+    >
+      {{ card.text }}
+    </div>
+
+    <div
+      v-if="card.layout === 'Plan'"
       class="stats flex items-center justify-center font-mono w-full"
       :style="statsContainerStyle"
     >
-      <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
-        <div class="stat bg-orange-500 shadow-lg shadow-orange-500/50 rounded-sm" :style="statStyle">
+      <div
+        class="stat-wrap flex flex-col items-center"
+        :style="statWrapperStyle"
+      >
+        <div
+          class="stat bg-violet-800 text-white shadow-lg shadow-violet-800/50 rounded-sm"
+          :style="statStyle"
+        >
+          {{ card.planning }}
+        </div>
+        <div
+          class="label opacity-70"
+          :style="statLabelStyle"
+        >
+          Plan
+        </div>
+      </div>
+    </div>
+
+    <div
+      v-if="card.stats"
+      class="stats flex items-center justify-center font-mono w-full"
+      :style="statsContainerStyle"
+    >
+      <div
+        class="stat-wrap flex flex-col items-center"
+        :style="statWrapperStyle"
+      >
+        <div
+          class="stat bg-orange-500 shadow-lg shadow-orange-500/50 rounded-sm"
+          :style="statStyle"
+        >
           {{ card.stats.ang }}
         </div>
-        <div class="label opacity-70" :style="statLabelStyle">ANG</div>
+        <div
+          class="label opacity-70"
+          :style="statLabelStyle"
+        >
+          ANG
+        </div>
       </div>
 
-      <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
-        <div class="stat bg-yellow-300 shadow-lg shadow-yellow-300/50 rounded-sm" :style="statStyle">
+      <div
+        class="stat-wrap flex flex-col items-center"
+        :style="statWrapperStyle"
+      >
+        <div
+          class="stat bg-yellow-300 shadow-lg shadow-yellow-300/50 rounded-sm"
+          :style="statStyle"
+        >
           {{ card.stats.int }}
         </div>
-        <div class="label opacity-70" :style="statLabelStyle">INT</div>
+        <div
+          class="label opacity-70"
+          :style="statLabelStyle"
+        >
+          INT
+        </div>
       </div>
 
-      <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
-        <div class="stat bg-violet-800 text-white shadow-lg shadow-violet-800/50 rounded-sm" :style="statStyle">
+      <div
+          v-if="card.stats.fok"
+        class="stat-wrap flex flex-col items-center"
+        :style="statWrapperStyle"
+      >
+        <div
+          class="stat bg-violet-800 text-white shadow-lg shadow-violet-800/50 rounded-sm"
+          :style="statStyle"
+        >
           {{ card.stats.fok }}
         </div>
-        <div class="label opacity-70" :style="statLabelStyle">FOK</div>
+        <div
+          class="label opacity-70"
+          :style="statLabelStyle"
+        >
+          FOK
+        </div>
       </div>
 
-      <div class="stat-wrap flex flex-col items-center" :style="statWrapperStyle">
-        <div class="stat bg-green-400 shadow-lg shadow-green-400/50 rounded-sm" :style="statStyle">
+      <div
+        class="stat-wrap flex flex-col items-center"
+        :style="statWrapperStyle"
+      >
+        <div
+          class="stat bg-green-400 shadow-lg shadow-green-400/50 rounded-sm"
+          :style="statStyle"
+        >
           {{ card.stats.aus }}
         </div>
-        <div class="label opacity-70" :style="statLabelStyle">AUS</div>
+        <div
+          class="label opacity-70"
+          :style="statLabelStyle"
+        >
+          AUS
+        </div>
       </div>
     </div>
 
-
-    <div class="footer w-full absolute text-center" :style="footerStyle">
-      {{card.sourceName}} · lvl {{card.sourceLevel}} · {{card.sourceType}}
+    <div
+      class="footer w-full absolute text-center"
+      :style="footerStyle"
+    >
+      {{ card.sourceName }} · lvl {{ card.sourceLevel }} · {{ card.sourceType }}
     </div>
-
   </article>
 </template>
 
@@ -258,5 +336,4 @@ const footerStyle = computed(() => {
 .stats {
   position: absolute;
 }
-
 </style>
