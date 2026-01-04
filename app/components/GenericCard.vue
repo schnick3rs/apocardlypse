@@ -10,7 +10,12 @@ const cardImage = computed(() => {
       top: `${11 * scale}mm`
     }
   }
-  return null
+  const layout = card.layout.toLowerCase()
+  const placeholderImageUrl = `/img/placeholder-${layout}.jpg`
+  return {
+    backgroundImage: `url(${placeholderImageUrl})`,
+    top: `${11 * scale}mm`
+  }
 })
 
 const cardDimensions = computed(() => {
@@ -97,7 +102,6 @@ const footerStyle = computed(() => {
   >
     <!-- card specific background image -->
     <div
-      v-if="card.imageUrl"
       class="layer layer-image"
       :style="cardImage"
     />
@@ -249,7 +253,7 @@ const footerStyle = computed(() => {
       class="footer w-full absolute text-center"
       :style="footerStyle"
     >
-      {{ card.sourceName }} · lvl {{ card.sourceLevel }} · {{ card.sourceType }}
+      {{ card.sourceName }} · lvl {{ card.sourceLevel }} · {{ card.sourceType }} · {{ card.layout }}
     </div>
   </article>
 </template>

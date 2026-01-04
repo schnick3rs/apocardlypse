@@ -7,11 +7,15 @@ const cardImage = computed(() => {
   if (card.imageUrl) {
     return {
       backgroundImage: `url(${card.imageUrl})`,
-      top: `${11*scale}mm`,
-    };
+      top: `${11 * scale}mm`
+    }
   }
-  return null;
-});
+  const placeholderImageUrl = `/img/placeholder-plan.jpg`
+  return {
+    backgroundImage: `url(${placeholderImageUrl})`,
+    top: `${11 * scale}mm`
+  }
+})
 
 const cardDimensions = computed(() => {
   return {
@@ -101,7 +105,7 @@ const footerStyle = computed(() => {
   <article class="card" :style="cardDimensions">
 
     <!-- card specific background image -->
-    <div v-if="card.imageUrl" class="layer layer-image rotate-90 origin-cente" :style="cardImage"></div>
+    <div class="layer layer-image rotate-90 origin-cente" :style="cardImage"></div>
 
     <!-- card Stain -->
     <div class="layer layer-stain--top"></div>
@@ -147,7 +151,7 @@ const footerStyle = computed(() => {
     </div>
 
     <div class="footer w-full absolute text-center" :style="footerStyle">
-      {{card.sourceName}} · lvl {{card.sourceLevel}} · {{card.sourceType}}
+      {{card.sourceName}} · {{card.sourceType}} · {{card.layout}}
     </div>
 
   </article>
